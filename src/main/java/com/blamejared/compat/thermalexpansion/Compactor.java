@@ -38,16 +38,29 @@ public class Compactor {
     public static void removeMintRecipe(IItemStack input) {
         ModTweaker.LATE_REMOVALS.add(new Remove(InputHelper.toStack(input), CompactorManager.Mode.COIN));
     }
+    @ZenMethod
+    public static void removeAllMintRecipes() {
+        ModTweaker.LATE_REMOVALS.add(new RemoveAll(CompactorManager.Mode.COIN));
+    }
     
     @ZenMethod
     public static void removePressRecipe(IItemStack input) {
         ModTweaker.LATE_REMOVALS.add(new Remove(InputHelper.toStack(input), CompactorManager.Mode.ALL));
+    }
+    @ZenMethod
+    public static void removeAllPressRecipes() {
+        ModTweaker.LATE_REMOVALS.add(new RemoveAll(CompactorManager.Mode.ALL));
     }
     
     @ZenMethod
     public static void removeStorageRecipe(IItemStack input) {
         ModTweaker.LATE_REMOVALS.add(new Remove(InputHelper.toStack(input), CompactorManager.Mode.PLATE));
     }
+    @ZenMethod
+    public static void removeAllStorageRecipes() {
+        ModTweaker.LATE_REMOVALS.add(new RemoveAll(CompactorManager.Mode.PLATE));
+    }
+    
     @ZenMethod
     public static void removeGearRecipe(IItemStack input) {
         ModTweaker.LATE_REMOVALS.add(new Remove(InputHelper.toStack(input), CompactorManager.Mode.GEAR));
