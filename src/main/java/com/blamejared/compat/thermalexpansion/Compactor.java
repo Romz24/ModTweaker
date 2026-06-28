@@ -52,6 +52,10 @@ public class Compactor {
     public static void removeGearRecipe(IItemStack input) {
         ModTweaker.LATE_REMOVALS.add(new Remove(InputHelper.toStack(input), CompactorManager.Mode.GEAR));
     }
+    @ZenMethod
+    public static void removeAllGearRecipes() {
+        ModTweaker.LATE_REMOVALS.add(new RemoveAll(CompactorManager.Mode.GEAR));
+    }
     
     
     private static class Add extends BaseAction {
@@ -103,6 +107,30 @@ public class Compactor {
         @Override
         protected String getRecipeInfo() {
             return LogHelper.getStackDescription(input) + " in mode: " + mode;
+        }
+    }
+    
+    private static class RemoveAll extends BaseAction {
+    
+        private CompactorManager.Mode mode;
+    
+        public RemoveAll(CompactorManager.Mode mode) {
+            super("Compactor");
+            this.mode = mode;
+        }
+    
+        @Override
+        public void apply() {
+            CompactorManager.CompactorRecipe[] recipes = CompactorManager.getRecipeList(mode);
+    
+            for (CompactorManager.CompactorRecipe recipe : recipes) {
+                CompactorManager.removeRecipe(recipe.getInput(), mode);
+            }
+        }
+    
+        @Override
+        protected String getRecipeInfo() {
+            return "All recipes in mode: " + mode;
         }
     }
 }
